@@ -3,15 +3,11 @@
 <meta charset="UTF-8">
 <title>image view</title>
 <body>
-<input id="inputLijang" value="1.222a1"></input>
+<input id="inputLijang" value="1.4a1"></input>
 <button onclick="searchLijang()">Lijang search</button>
-<input id="inputLijang_page" value="1.3"></input>
-<button onclick="searchLijang_page()">Lijang page search</button>
 <br>
 <input id="inputLhasa" value="1.2b"></input>
 <button onclick="searchLhasa()">Lhasa search</button>
-<input id="inputLhasa_page" value="1.4"></input>
-<button onclick="searchLhasa_page()">Lhasa page search</button>
 <br>
 Lijang result:
 <button onclick="previous1()">Previous Page</button>
@@ -23,7 +19,7 @@ Lhasa  result:
 <button onclick="previous2()">Previous Page</button>
 <span id="part2" ></span>
 <button onclick="next2()">Next Page</button>
-<img id="i2" style="width:100%"></img>
+<img id="image2" style="width:100%"></img>
 <script  language="JavaScript">
 var Lithang_rangetop=["1@1b1","1@17b8","1@27b4","1@37b3","1@47a2","1@67a8","1@79a1","1@90b6",
 "1@102b5","1@115a2","1@128a3","1@140b6","1@155b2","1@168a2","1@181b8","1@197a7","1@212a5",
@@ -188,15 +184,15 @@ var searchLijang=function(){
 		r=idtofilename(volpage);
 		r[1]="00"+r[1];
 		r[1]=r[1].substr(r[1].length-5,4);
-		var image2=LihangtoLhasa(r[0]+"."+r[1]);
-		image2=image2.split(".");
-		image2[1]="00"+image2[1];
-		image2[1]=image2[1].substr(image2[1].length-5,4);
+		var i2=LihangtoLhasa(r[0]+"."+r[1]);
+		i2=i2.split(".");
+		i2[1]="00"+i2[1];
+		i2[1]=i2[1].substr(i2[1].length-5,4);
 		image1.src="Lijang image/001/"+r[0]+"-"+r[1]+".jpg";
 		document.getElementById("part1").innerHTML=r[0]+'-'+r[1];
-		i2.src="Lhasa image/001/"+"00"+image2[0]+"-"+image2[1]+".png";
-		document.getElementById("part2").innerHTML="00"+image2[0]+'-'+image2[1];
-		console.log(image2.src);
+		image2.src="Lhasa image/001/"+"00"+i2[0]+"-"+i2[1]+".png";
+		document.getElementById("part2").innerHTML="00"+i2[0]+'-'+i2[1];
+		console.log(i2.src);
 	}
 }
 
