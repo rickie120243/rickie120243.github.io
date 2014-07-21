@@ -1,0 +1,19 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="data.js"></script>
+<script src="search.js"></script>
+<script src="ui.js"></script>
+
+<body>
+<input id="tofind" value="不"></input>
+<button onclick="dosearch(tofind.value)">Key Search</button>
+<a href="#" onclick="dosearch2(this.innerHTML)">[鼠牛虎兔龍蛇馬羊猴雞狗豬]</a>
+<a href="#" onclick="dosearchOOXX(this.innerHTML)">OOXX</a>
+<a href="#" onclick="dosearchOXOX(this.innerHTML)">OXOX</a><br>
+<input id="tofinddef" value="莊子"></input>
+<button onclick="dodefsearch(tofinddef.value)">Def Search</button>
+<div id="result"></div>
+</body>
+</head>
+</html>
