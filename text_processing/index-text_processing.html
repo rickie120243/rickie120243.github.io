@@ -1,0 +1,198 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Lesson 3 文本處理</title>
+
+<script language="JavaScript">
+	var dowordcount=function() {
+		var textinput=document.getElementById("textinput").value;
+		var wordcount=0;
+		for(var i in textinput){
+ 			wordcount++;
+		}
+		document.getElementById("wordcount").innerHTML=wordcount;
+	}
+
+	var dowordcount_nopunc=function(input,output) {
+		var textinput=document.getElementById(input).value;
+		var wordcount_nopunc=0;
+		for(var i in textinput){
+			var code=textinput.charCodeAt(i);
+			if( code>=0x4e00 && code<=0x9fff ) {
+ 			wordcount_nopunc++;
+		}
+	}
+		document.getElementById(output).innerHTML=wordcount_nopunc;
+	}
+	var usewordcount=function(input,output) {
+		input=input || "textinput";
+		output=output || "usewordcount";
+		var textinput=document.getElementById(input).value;
+		var usewordcount=0;
+		var words={};
+		//words ={ "道":true,"可":true}
+		for(var i in textinput){
+			var code=textinput.charCodeAt(i);
+			if( code>=0x4e00 && code<=0x9fff ) {
+ 				if( !words[ textinput.charAt(i) ] ) {
+					usewordcount++;
+					words[ textinput.charAt(i) ] = true;
+
+ 				}
+ 			//console.log(i,usewordcount);
+		}
+	}
+		document.getElementById(output).innerHTML=usewordcount;
+	}
+	
+	var wordfreq=function(input,output) {
+		input=input || "textinput";
+		output=output || "wordfreq";
+		var textinput=document.getElementById(input).value;
+		var usewordcount=0;
+		var words={};
+		//words ={ "道":freq,"可":freq}
+		for(var i in textinput){
+			var code=textinput.charCodeAt(i);
+				if( code>=0x4e00 && code<=0x9fff ) {
+					if( !words[ textinput.charAt(i) ] ) {
+						usewordcount++;
+						words[ textinput.charAt(i) ] = 1;
+					} else {
+						words[ textinput.charAt(i)] +=1;
+					}
+ 			//console.log(i,usewordcount);
+		}
+	}
+	
+	//HASH^
+	
+	//ARRAYˇ
+	var sorted=[];
+	for (var i in words) {
+		sorted.push( [i,words[i]]);
+	}
+	sorted.sort(function(a,b){
+	
+	  return a[1]-b[1]; //比較字頻數 排序
+	});
+		document.getElementById(output).innerHTML=JSON.stringify(sorted);
+	}
+	
+	var anti_wordfreq=function(input,output) {
+		input=input || "textinput";
+		output=output || "anti_wordfreq";
+		var textinput=document.getElementById(input).value;
+		var usewordcount=0;
+		var words={};
+		//words ={ "道":freq,"可":freq}
+		for(var i in textinput){
+			var code=textinput.charCodeAt(i);
+				if(code>=0x4e00 && code<=0x9fff){
+					if(!words[ textinput.charAt(i)]){   
+						usewordcount++;
+						words[textinput.charAt(i)] = 1;
+					} else {
+						words[textinput.charAt(i)] +=1;
+				}
+ 			//console.log(i,usewordcount);
+			}
+		}
+		//HASH^
+	
+		//ARRAYˇ
+		var sorted=[];   //只找字頻大於2的字
+		for (var i in words){
+			if(words[i]>2){
+				sorted.push([i,words[i]]);
+			}
+		}
+		sorted.sort(function(a,b){
+			return b[1]-a[1]; //比較字頻數 排序 大到小
+		});
+		var simple=[];
+		for(var i=0;i<sorted.length;i++){
+			simple.push(sorted[i][0]+"("+sorted[i][1]+")");
+		}
+		document.getElementById(output).innerHTML=simple.join(" , ");
+	}
+	
+	//抽出標點符號。位置放在puncpos中
+	var extractpunc=function(input,output,puncoutput) {
+		input=input || "textinput";
+		output=output || "textoutput";
+		puncoutput=puncoutput || "extractpunc";
+		var textinput=document.getElementById(input).value;
+		var wordcount_nopunc=0;
+		var result="";
+		var puncs="。,!;";
+		var puncpos=[];
+		//puncpos[3]=","
+		//puncpos[7]=";"
+		for(var i in textinput){
+			var code=textinput.charCodeAt(i);
+			var ch=textinput.charAt(i);//refactoring
+			if(puncs.indexOf(ch) >-1 ){
+				puncpos[i]=ch;
+			}else{
+			result+=ch;
+			}
+		}
+		document.getElementById(output).value=result;
+		document.getElementById(puncoutput).innerHTML=JSON.stringify(puncpos);
+	}
+	
+	var changepunc=function(input1,output,input2) {
+		input1=input1 || "textoutput";
+		output=output || "textinput";
+		input2=input2 || "extractpunc";
+		var textinput=document.getElementById(input1).value;//字去標點
+		var extractpunc=document.getElementById(input2).innerHTML;//標點座標
+		var wordcount_nopunc=0;
+		var result="";
+		var puncs="ull[]";
+		var puncpos=[];
+		 //puncpos[3]=","
+		
+		 //puncpos[7]=";"
+		for(var i in extractpunc){
+		var code=extractpunc.charCodeAt(i);
+		var ch=extractpunc.charAt(i);//refactoring
+		if(puncs.indexOf(ch) >-1 ){
+			puncpos[i]=ch;
+			}else{
+			result+=ch;
+			}
+		}
+
+
+		result=textinput+extractpunc;
+		document.getElementById(output).value=result;
+	}
+
+
+</script>
+
+</head>
+
+
+
+<body>
+<textarea id="textinput" cols="40" rows="10">道可道,非常道;名可名,非常名。
+無名,天地之始;有名,萬物之母。
+常無,欲以觀其妙;常有,欲以觀其微。
+</textarea>
+<textarea id="textoutput" cols="40" rows="10"></textarea>
+<br><button onclick="dowordcount()">字數</button><span id="wordcount"></span></br>
+<br><button onclick="dowordcount_nopunc('textinput','wordcount_nopunc')">字數(不含標點)</button><span id="wordcount_nopunc"></span></br>
+<br><button onclick="usewordcount()">用字統計</button><span id="usewordcount"></span></br>
+<br><button onclick="wordfreq()">字頻(小到大)</button><span id="wordfreq"></span></br>
+<br><button onclick="anti_wordfreq()">字頻(大到小)</button><span id="anti_wordfreq"></span></br>
+<br><button onclick="extractpunc()">抽標點</button><span id="extractpunc"></span></br>
+<br><button onclick="changepunc()">換標點</button><span id="changepunc"></span></br>
+
+</body>
+
+
+
+</html>

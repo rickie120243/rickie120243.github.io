@@ -1,0 +1,138 @@
+﻿<html>
+<head>
+<meta charset="UTF-8">
+<title>第四課</title>
+<script src="underscore.js"></script>
+<script src="decompose.js" ></script>
+<script src="partfreq.js" ></script>
+<script>
+	
+	var totallength=0;
+	var msg=[];
+	var showdecompose=function(){ //dataloading
+		
+		for(var i in decompose){
+			charactercount++;
+			totallength+=decompose[i].length;
+		}
+		msg.push("盟="+decompose["盟"]);
+		msg.push("總字數:"+charactercount);
+		msg.push("部件引用數"+totallength);
+		msg.push("平均每字部件數"+(totallength/charactercount));
+		document.getElementById("output").innerHTML=msg.join("\n");
+	//decompose["盟"];
+	}
+	
+	var partsearch=function(){
+		var q=document.getElementById("part").value;
+		var arr=findbypart(q);
+		document.getElementById("message").innerHTML="<button>"+arr.join("</button><button>")+"</button>";
+	}
+	
+	var listfreq=function(){
+		var sorted_freq=caculatefreq();
+		document.getElementById("output").value=sorted_freq.join("\n");
+		document.getElementById("message").innerHTML="部件數"+sorted_freq.length;
+	}
+	
+	var listaccufreq=function(){
+		if(!partindex['口'])alert("請先算部件頻次");
+		var report=calaccufreq();
+		document.getElementById("output").value=report.join("\n");
+	}
+	
+	var listfinal=function(){
+		var finalpart=[];
+		var msg=[];
+		if(!partindex['口'])alert("請先算部件頻次");
+		for(var i in partindex){
+			if(!decompose[i]) finalpart.push(i);
+		}
+		msg.push("末級部件數"+finalpart.length);
+		document.getElementById("message").innerHTML=msg.join("<br/>");
+		document.getElementById("output").value=finalpart.join("\n");
+	}
+	//遞回拆分
+	var exhaust=function(ids){
+		var r="";
+		for(var i in ids){
+		r+=ids[i];
+		var ch=ids[i];
+		var subids=decompose[ch];
+		if(subids)r+=exhaust(subids);
+		}
+		return r;
+	}
+	
+	var decompose_exhaust=function(){
+		ch=document.getElementById("exhaustpart").value;
+		var ids=decompose[ch];
+		if(!ids) return;
+		document.getElementById("message").innerHTML=exhaust(ids);
+	}
+	
+	var exhaustfinal=function(ids){
+		var r=[];
+		for(var i in ids){
+			if(decompose[ids[i]]) r=r.concat(exhaustfinal(decompose[ids[i]]));
+				else r.push(ids[i]);
+		}
+		return r;
+	}
+	
+	var decompose_final={};
+	//建末級部件table
+	var buildexhaustfinal=function(){
+		for(var i in decompose){
+			var arr=exhaustfinal(decompose[i]);
+			arr=arr.sort(function(a,b){return a.charCodeAt(0)-b.charCodeAt(0)});
+			decompose_final[i]=_.uniq(arr,true);
+		}
+	}
+	
+	var findpartproduct=function(){
+		if(!decompose_final['明']){
+			document.getElementById("message").innerHTML='building exhaust';
+		buildexhaustfinal();
+			document.getElementById("message").innerHTML='done';
+		}
+		
+		var input=document.getElementById("partproduct");
+		var inputarray=exhaustfinal(input.value);
+		inputarray=inputarray.sort(function(a,b){return a.charCodeAt(0)-b.charCodeAt(0)});
+		
+		inputarray=_.uniq(inputarray,true);
+		
+		input.value=inputarray.join("");
+		
+		var output=[];
+		for (var i in decompose_final) {
+			if (decompose_final[i].join("")==
+				_.intersection(decompose_final[i],inputarray).join("")) {
+				output.push(i);
+			}
+		}
+	output=_.uniq(output);
+	document.getElementById("output").value=output.join("\t");
+	document.getElementById("message").innerHTML=output.length;
+	
+	}
+	
+</script>
+</head>
+
+<body onload="showdecompose()">
+<input id="part" value="冓"></input>
+<button onclick="partsearch()">含有此部件的字</button>
+<button onclick="listfreq()">部件頻次</button>
+<button onclick="listfinal()">末級部件數</button>
+<button onclick="listaccufreq()">累計頻次</button><br>
+<input id="exhaustpart" value="擝">
+<button onclick="decompose_exhaust()">窮盡拆分</button></input>
+<br><input id="partproduct" value="土女扌艹日月皿木田">
+<button onclick="findpartproduct()">列舉組合字</button></input>
+<span id="message"></span><br>
+<textarea id="output" cols="40" rows="20"></textarea></br>
+</body>
+</html>
+
