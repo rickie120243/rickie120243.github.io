@@ -5,6 +5,7 @@ var search=function(tofind){
 	for(var i=0;i<idioms.length;i++){
 		if(idioms[i].key.indexOf(tofind)>-1){
 			idioms[i].key=idioms[i].key.replace(tofind,wordcolor(tofind));
+//			idioms[i].key='<span class="key">'+idioms[i].key+'</span>';
 			out.push(idioms[i]);
 		}
 	}
@@ -16,7 +17,6 @@ var defsearch=function(tofind){
 	for(var i=0;i<idioms.length;i++){
 		if(idioms[i].def.indexOf(tofind)>-1){
 			idioms[i].def=idioms[i].def.replace(tofind,blodwordcolor(tofind));
-
 			out.push(idioms[i]);
 		}
 	}
@@ -24,11 +24,13 @@ var defsearch=function(tofind){
 }
 
 var blodwordcolor=function(w){
-	return "<font color=red>"+"<b>"+w+"</b>"+"</font>";
+//	return "<font color=red>"+"<b>"+w+"</b>"+"</font>";
+	return '<span class="def">'+w+"</span>";
 }
 
 var wordcolor=function(w){
-	return "<font color=red>"+w+"</font>";
+//	return "<font color=red>"+w+"</font>";
+	return '<span class="key">'+w+'</span>';
 }
 
 var search2=function(tofind){
