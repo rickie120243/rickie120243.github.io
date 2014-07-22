@@ -1,6 +1,6 @@
 //front end
 var showidiom=function(idiom){
-	return "<b>"+idiom.key+"</b> : "+"注音 : "+idiom.pronounce+" 漢語拼音 : "+idiom.enspell+"<br>"+idiom.def;
+	return '<span class="key">'+idiom.key+"</span>"+"注音 : "+idiom.pronounce+" 漢語拼音 : "+idiom.enspell+"<br>"+idiom.def;
 }
 var dosearch=function(tofind){
 	var arr=search(tofind);
