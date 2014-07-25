@@ -1,4 +1,4 @@
-.key{color:red;}
+.key{color:red;font-weight:bold;}
 .def{color:#ff0000;font-weight:bold;}
 
 input,button{font-size:200%;width:50%;}
