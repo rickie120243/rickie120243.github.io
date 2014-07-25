@@ -1,5 +1,8 @@
 CACHE MANIFEST
-/index.html
-/search.js
-/ui.js
-/CSS.css
+/idiomsearch/index-idiomsearch.html
+/idiomsearch/search.js
+/idiomsearch/ui.js
+/idiomsearch/CSS.css
+/idiomsearch/dump.js
+/idiomsearch/data.js
+/idiomsearch/喵典.png
