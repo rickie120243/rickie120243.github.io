@@ -4,9 +4,10 @@ var search=function(tofind){
 //	var p=new RegExp(tofind,'g');
 	for(var i=0;i<idioms.length;i++){
 		if(idioms[i].key.indexOf(tofind)>-1){
-			idioms[i].key=idioms[i].key.replace(tofind,wordcolor(tofind));
+			var res={key:idioms[i].key,pronounce:idioms[i].pronounce,enspell:idioms[i].enspell,def:idioms[i].def};
+			res["key"]=idioms[i].key.replace(tofind,wordcolor(tofind));
 //			idioms[i].key='<span class="key">'+idioms[i].key+'</span>';
-			out.push(idioms[i]);
+			out.push(res);
 		}
 	}
 	return out;
