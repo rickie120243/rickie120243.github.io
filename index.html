@@ -1,20 +1,35 @@
 <HTML>
-<HEAD>
-<meta charset="UTF-8">
-<TITLE>Lai,Chih-Hsuan的作品集</TITLE>
-</HEAD>
+  <HEAD>
+    <meta charset="UTF-8">
+    <TITLE>Lai,Chih-Hsuan的作品集</TITLE>
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="706264561255-969lt9pg66gmvbogvmv4o2l8495r7emu.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+  </HEAD>
 
-<body style="color:black" background="background_pic/wood.jpg">
+  <body style="color:black" background="background_pic/wood.jpg">
+    <script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log("Name: " + profile.getName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
 
-
-<H2 align=center><font size=6 color=#555555>Lai,Chih-Hsuan的作品集</font></H2>
-<ol align=center><font size=5>
-<a href="idiomsearch/index-idiomsearch.html" >成語搜尋</a><br>
-<a href="image_view/index-image_view.html">經文對照</a><br>
-<a href="text_processing/index-text_processing.html">文本處理(抽換標點未完成)</a><br>
-<a href="部份差分表/.">部份差分表</a><br>
-<a href="googleLogin/.">Google登入</a><br>
-</font></ol>
-</div>
-</BODY>
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      };
+    </script>
+    <H2 align=center><font size=6 color=#555555>Lai,Chih-Hsuan的作品集</font></H2>
+    <ol align=center><font size=5>
+    <a href="idiomsearch/index-idiomsearch.html" >成語搜尋</a><br>
+    <a href="image_view/index-image_view.html">經文對照</a><br>
+    <a href="text_processing/index-text_processing.html">文本處理(抽換標點未完成)</a><br>
+    <a href="部份差分表/.">部份差分表</a><br>
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    </font></ol>
+    </div>
+  </BODY>
 </HTML>
