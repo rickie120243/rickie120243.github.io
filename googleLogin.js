@@ -16,5 +16,3 @@ function doSignOut() {
     document.getElementById('loginInfo').innerHTML = 'User signed out.';
   });
 }
-
-document.getElementById('signOut').addEventListener('click', doSignOut());
