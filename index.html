@@ -9,18 +9,24 @@
 
   <body style="color:black" background="background_pic/wood.jpg">
     <script>
-      function onSignIn(googleUser) {
+        function onSignIn(googleUser) {
         // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log("Name: " + profile.getName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
+            var profile = googleUser.getBasicProfile();
+            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            console.log("Name: " + profile.getName());
+            console.log("Image URL: " + profile.getImageUrl());
+            console.log("Email: " + profile.getEmail());
 
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-      };
+            // The ID token you need to pass to your backend:
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
+        };
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
     </script>
     <H2 align=center><font size=6 color=#555555>Lai,Chih-Hsuan的作品集</font></H2>
     <ol align=center><font size=5>
@@ -29,6 +35,7 @@
     <a href="text_processing/index-text_processing.html">文本處理(抽換標點未完成)</a><br>
     <a href="部份差分表/.">部份差分表</a><br>
     <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    <a href="#" onclick="signOut();">Sign out</a>
     </font></ol>
     </div>
   </BODY>
