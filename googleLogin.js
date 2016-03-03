@@ -10,7 +10,7 @@ function onSignIn(googleUser) {
   document.getElementById('loginInfo').innerHTML = arr.join('<br>');  
 }
 
-function doSignOut() {
+function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {
     document.getElementById('loginInfo').innerHTML = 'User signed out.';
