@@ -1,12 +1,12 @@
 function onSignIn(googleUser) {
   var arr = [];
   var profile = googleUser.getBasicProfile();
-  var id_token = googleUser.getAuthResponse().id_token;
+  var idToken = googleUser.getAuthResponse()["id_token"];
   arr.push('ID: ' + profile.getId());
   arr.push('Name: ' + profile.getName());
   arr.push('Image URL: ' + profile.getImageUrl());
   arr.push('Email: ' + profile.getEmail());
-  arr.push('ID Token: ' + id_token);
+  arr.push('ID Token: ' + idToken);
   document.getElementById('loginInfo').innerHTML = arr.join('<br>');  
 }
 
